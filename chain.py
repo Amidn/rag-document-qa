@@ -1,10 +1,9 @@
 # chain.py
 
-from langchain_openai import ChatOpenAI
-from langchain.prompts import PromptTemplate
+from langchain_openai import ChatOpenAI, OpenAIEmbeddings
+from langchain_core.prompts import PromptTemplate
 from langchain.chains import RetrievalQA
 from langchain_community.vectorstores import Chroma
-from langchain_openai import OpenAIEmbeddings
 
 from config import (
     OPENAI_API_KEY,
