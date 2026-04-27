@@ -1,3 +1,4 @@
+
 # 📄 RAG Document QA
 
 A conversational question-answering app that lets you chat with your own documents using **Retrieval-Augmented Generation (RAG)** and **Large Language Models (LLMs)**.
@@ -10,7 +11,7 @@ Upload a PDF or text file, ask questions in natural language, and get accurate a
 
 1. **Ingest** — the document is loaded, split into chunks, and embedded into a local vector database (ChromaDB)
 2. **Retrieve** — when you ask a question, the most relevant chunks are retrieved using semantic similarity search
-3. **Generate** — the retrieved chunks are passed to an LLM (GPT-4o-mini) which generates a grounded answer
+3. **Generate** — the retrieved chunks are passed to an LLM (Llama 3.3 via Groq) which generates a grounded answer
 
 ---
 
@@ -18,8 +19,8 @@ Upload a PDF or text file, ask questions in natural language, and get accurate a
 
 | Component | Technology |
 |---|---|
-| LLM | OpenAI GPT-4o-mini |
-| Embeddings | OpenAI text-embedding-3-small |
+| LLM | Llama 3.3 70B via Groq API |
+| Embeddings | sentence-transformers/all-MiniLM-L6-v2 (local, free) |
 | Vector store | ChromaDB |
 | RAG framework | LangChain |
 | UI | Streamlit |
@@ -39,14 +40,13 @@ rag-document-qa/
 ├── requirements.txt # Python dependencies
 └── .env             # API keys (never pushed to GitHub)
 
-
 ---
 
 ## ⚙️ Setup
 
 **1. Clone the repository**
 ```bash
-git clone https://github.com/your-username/rag-document-qa.git
+git clone https://github.com/Amidn/rag-document-qa.git
 cd rag-document-qa
 ```
 
@@ -62,9 +62,10 @@ pip install -r requirements.txt
 ```
 
 **4. Create your `.env` file**
-```bash
-OPENAI_API_KEY=your-openai-api-key-here
-```
+
+GROQ_API_KEY=your-groq-api-key-here
+
+Get a free Groq API key at [console.groq.com](https://console.groq.com)
 
 **5. Run the app**
 ```bash
@@ -88,6 +89,7 @@ streamlit run app.py
 - Answers are grounded strictly in the uploaded document
 - Shows source chunks used to generate each answer
 - Clean chat interface with conversation history
+- Local embeddings — no paid embedding API needed
 - Modular codebase — easy to extend with new file types or LLMs
 
 ---
@@ -97,3 +99,4 @@ streamlit run app.py
 - Your API key is never stored or pushed to GitHub
 - The vector database is stored locally in `./chroma_db`
 - To reset and upload a new document, delete the `./chroma_db` folder and restart the app
+
