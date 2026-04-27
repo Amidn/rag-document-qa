@@ -220,3 +220,7 @@ chroma_db/
 data/*
 !data/.gitignore
 !data/.gitkeep
+
+
+
+.DS_Store
