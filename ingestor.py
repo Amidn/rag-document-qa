@@ -3,16 +3,14 @@
 import os
 from langchain_community.document_loaders import PyPDFLoader, TextLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
-
-from langchain_openai import OpenAIEmbeddings
+from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_community.vectorstores import Chroma
 
 from config import (
-    OPENAI_API_KEY,
-    EMBEDDING_MODEL,
+    CHROMA_DB_DIR,
     CHUNK_SIZE,
     CHUNK_OVERLAP,
-    CHROMA_DB_DIR,
+    TOP_K_RESULTS,
     UPLOAD_DIR
 )
 
@@ -40,12 +38,16 @@ def split_documents(documents):
     return splitter.split_documents(documents)
 
 
+def get_embeddings():
+    """Return HuggingFace embeddings — runs locally, no API key needed."""
+    return HuggingFaceEmbeddings(
+        model_name="sentence-transformers/all-MiniLM-L6-v2"
+    )
+
+
 def embed_and_store(chunks):
     """Embed chunks and store them in ChromaDB."""
-    embeddings = OpenAIEmbeddings(
-        model=EMBEDDING_MODEL,
-        openai_api_key=OPENAI_API_KEY
-    )
+    embeddings = get_embeddings()
 
     vector_store = Chroma.from_documents(
         documents=chunks,

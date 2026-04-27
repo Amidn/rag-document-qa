@@ -6,15 +6,10 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # LLM settings
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
-LLM_MODEL = "gpt-4o-mini"
-MAX_TOKENS = 1000
-TEMPERATURE = 0.0
+GROQ_API_KEY = os.getenv("GROQ_API_KEY")
+GROQ_MODEL = "llama-3.3-70b-versatile"
 
-# Embedding settings
-EMBEDDING_MODEL = "text-embedding-3-small"
-
-# Document chunking settings
+# Chunking settings
 CHUNK_SIZE = 500
 CHUNK_OVERLAP = 50
 
